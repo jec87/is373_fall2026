@@ -8,14 +8,14 @@ export default function Home() {
       <section className="hero">
         <div className="hero-copy">
           <p className="eyebrow">
-            <span className="status-dot" /> YOUR PORTFOLIO STARTS HERE / 001
+            <span className="status-dot" /> JIYEON CHOI / PORTFOLIO
           </p>
           <h1>
-            BUILD
+            DESIGN
             <br />
-            SOMETHING
+            WITH
             <span className="hero-last">
-              YOURS<span className="accent-dot">.</span>
+              PURPOSE<span className="accent-dot">.</span>
             </span>
           </h1>
           <p>

@@ -1,11 +1,11 @@
 // Students: personalize this file first. All projects below are explicitly labeled examples.
 export const portfolio = {
-  name: "Your name",
-  role: "Designer. Developer. Work in progress.",
-  intro:
-    "I turn questions into thoughtful digital experiences. This is where I share what I make, how I think, and what I learn along the way.",
-  email: "", // Add your real address to enable the contact link.
-  github: "https://github.com/kaw393939/is373_fall2026",
+name: "Jiyeon Choi",
+role: "HCI Student & Aspiring UX Designer",
+intro:
+  "I create simple, thoughtful digital experiences by combining design, technology, and an understanding of how people interact with products.",
+email: "jec87@njit.edu",
+github: "https://github.com/jec87",
 };
 export const projects = [
   {
