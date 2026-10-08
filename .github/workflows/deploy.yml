@@ -39,3 +39,111 @@ jobs:
           target: production
           push: true
           tags: ghcr.io/jec87/is373_fall2026:${{ github.sha }}
+  deploy-qa:
+    if: github.ref == 'refs/heads/qa'
+    needs: publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Deploy to QA
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          IMAGE: ghcr.io/jec87/is373_fall2026:${{ github.sha }}
+        run: |
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=yes \
+            "$SSH_USER@$SSH_HOST" "IMAGE='$IMAGE' bash -se" <<'REMOTE'
+          set -euo pipefail
+
+          sudo -n docker pull "$IMAGE"
+
+          # Create and test the replacement without changing live QA.
+          sudo -n docker rm -f is373-qa-candidate 2>/dev/null || true
+          sudo -n docker run -d \
+            --name is373-qa-candidate \
+            --network hosting-web \
+            "$IMAGE"
+
+          healthy=false
+          for attempt in $(seq 1 30); do
+            status=$(sudo -n docker inspect \
+              --format '{{if .State.Health}}{{.State.Health.Status}}{{else}}none{{end}}' \
+              is373-qa-candidate)
+            if [ "$status" = healthy ]; then
+              healthy=true
+              break
+            fi
+            if [ "$status" = unhealthy ]; then
+              break
+            fi
+            sleep 2
+          done
+
+          if [ "$healthy" != true ]; then
+            echo "Candidate failed health check; existing QA remains running."
+            sudo -n docker rm -f is373-qa-candidate
+            exit 1
+          fi
+
+          # Keep the previous QA container available for rollback.
+          sudo -n docker rm -f is373-qa-previous 2>/dev/null || true
+          sudo -n docker stop is373-qa
+          sudo -n docker rename is373-qa is373-qa-previous
+
+          rollback() {
+            sudo -n docker rm -f is373-qa 2>/dev/null || true
+            sudo -n docker rename is373-qa-previous is373-qa
+            sudo -n docker start is373-qa
+          }
+
+          if ! sudo -n docker run -d \
+            --name is373-qa \
+            --restart unless-stopped \
+            --network hosting-web \
+            --label 'traefik.enable=true' \
+            --label 'traefik.docker.network=hosting-web' \
+            --label 'traefik.http.routers.is373-qa.rule=Host(`qa.jiyeonchoi.xyz`)' \
+            --label 'traefik.http.routers.is373-qa.entrypoints=websecure' \
+            --label 'traefik.http.routers.is373-qa.tls=true' \
+            --label 'traefik.http.routers.is373-qa.tls.certresolver=letsencrypt' \
+            --label 'traefik.http.services.is373-qa.loadbalancer.server.port=3000' \
+            "$IMAGE"; then
+            rollback
+            exit 1
+          fi
+
+          healthy=false
+          for attempt in $(seq 1 30); do
+            status=$(sudo -n docker inspect \
+              --format '{{if .State.Health}}{{.State.Health.Status}}{{else}}none{{end}}' \
+              is373-qa)
+            if [ "$status" = healthy ]; then
+              healthy=true
+              break
+            fi
+            if [ "$status" = unhealthy ]; then
+              break
+            fi
+            sleep 2
+          done
+
+          if [ "$healthy" != true ]; then
+            echo "New QA failed health check; restoring previous version."
+            rollback
+            exit 1
+          fi
+
+          sudo -n docker rm -f is373-qa-candidate
+          echo "QA deployment successful."
+          REMOTE
