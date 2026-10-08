@@ -144,6 +144,142 @@ jobs:
             exit 1
           fi
 
+          # Verify that the QA website responds successfully.
+          website_ok=false
+          for attempt in $(seq 1 15); do
+            if curl --fail --silent --show-error \
+              --max-time 10 \
+              --output /dev/null \
+              https://qa.jiyeonchoi.xyz/api/health; then
+              website_ok=true
+              break
+            fi
+            sleep 2
+          done
+
+          if [ "$website_ok" != true ]; then
+            echo "QA website health check failed; restoring previous version."
+            rollback
+            exit 1
+          fi
+
           sudo -n docker rm -f is373-qa-candidate
           echo "QA deployment successful."
+          REMOTE
+  deploy-production:
+    if: github.ref == 'refs/heads/main'
+    needs: publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Deploy to Production
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          IMAGE: ghcr.io/jec87/is373_fall2026:${{ github.sha }}
+        run: |
+          ssh -i ~/.ssh/deploy_key \
+            -o StrictHostKeyChecking=yes \
+            "$SSH_USER@$SSH_HOST" \
+            "IMAGE='$IMAGE' bash -se" <<'REMOTE'
+          set -euo pipefail
+
+          sudo -n docker pull "$IMAGE"
+
+          sudo -n docker rm -f is373-production-candidate 2>/dev/null || true
+
+          sudo -n docker run -d \
+            --name is373-production-candidate \
+            --network hosting-web \
+            "$IMAGE"
+
+          healthy=false
+          for attempt in $(seq 1 30); do
+            status=$(sudo -n docker inspect \
+              --format '{{if .State.Health}}{{.State.Health.Status}}{{else}}none{{end}}' \
+              is373-production-candidate)
+
+            if [ "$status" = healthy ]; then
+              healthy=true
+              break
+            fi
+
+            if [ "$status" = unhealthy ]; then
+              break
+            fi
+
+            sleep 2
+          done
+
+          if [ "$healthy" != true ]; then
+            echo "Production candidate failed health check."
+            sudo -n docker rm -f is373-production-candidate
+            exit 1
+          fi
+
+          sudo -n docker rm -f is373-production-previous 2>/dev/null || true
+          sudo -n docker stop is373-fall2026-web-1
+          sudo -n docker rename is373-fall2026-web-1 is373-production-previous
+
+          rollback() {
+            sudo -n docker rm -f is373-fall2026-web-1 2>/dev/null || true
+            sudo -n docker rename is373-production-previous is373-fall2026-web-1
+            sudo -n docker start is373-fall2026-web-1
+          }
+
+          if ! sudo -n docker run -d \
+            --name is373-fall2026-web-1 \
+            --restart unless-stopped \
+            --network hosting-web \
+            --label 'traefik.enable=true' \
+            --label 'traefik.docker.network=hosting-web' \
+            --label 'traefik.http.routers.portfolio.rule=Host(`jiyeonchoi.xyz`)' \
+            --label 'traefik.http.routers.portfolio.entrypoints=websecure' \
+            --label 'traefik.http.routers.portfolio.tls=true' \
+            --label 'traefik.http.routers.portfolio.tls.certresolver=letsencrypt' \
+            --label 'traefik.http.services.portfolio.loadbalancer.server.port=3000' \
+            "$IMAGE"; then
+            rollback
+            exit 1
+          fi
+
+          healthy=false
+          for attempt in $(seq 1 30); do
+            status=$(sudo -n docker inspect \
+              --format '{{if .State.Health}}{{.State.Health.Status}}{{else}}none{{end}}' \
+              is373-fall2026-web-1)
+
+            if [ "$status" = healthy ]; then
+              healthy=true
+              break
+            fi
+
+            if [ "$status" = unhealthy ]; then
+              break
+            fi
+
+            sleep 2
+          done
+
+          if [ "$healthy" != true ]; then
+            echo "Production health check failed; restoring previous version."
+            rollback
+            exit 1
+          fi
+
+          sudo -n docker rm -f is373-production-candidate
+          sudo -n docker rm -f is373-production-previous
+
+          echo "Production deployment successful."
           REMOTE
