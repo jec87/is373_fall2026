@@ -4,6 +4,7 @@ name: Deploy QA and Production
 on:
   push:
     branches: [qa, main]
+   workflow_dispatch:
 
 permissions:
   contents: read
