@@ -14,11 +14,11 @@ Your first project in Content Management Systems is to begin building a personal
 
 ## Three parts of one project
 
-| Part | Start with | What you should be able to explain |
-| --- | --- | --- |
-| AI-assisted development | [Working with AI](docs/working-with-ai.md) | What you asked for, what changed, how you checked it, and what you learned. |
-| Docker and containerization | [Docker explained through this project](docs/docker-basics.md) | How your code, image, container, ports, and storage work together. |
-| Your portfolio and message | [Discovery, design, and persuasion](docs/discovery.md) | Who you want to reach, what you offer, what evidence supports it, and the next action. |
+| Part                        | Start with                                                     | What you should be able to explain                                                     |
+| --------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| AI-assisted development     | [Working with AI](docs/working-with-ai.md)                     | What you asked for, what changed, how you checked it, and what you learned.            |
+| Docker and containerization | [Docker explained through this project](docs/docker-basics.md) | How your code, image, container, ports, and storage work together.                     |
+| Your portfolio and message  | [Discovery, design, and persuasion](docs/discovery.md)         | Who you want to reach, what you offer, what evidence supports it, and the next action. |
 
 ## What is already here?
 
@@ -35,3 +35,55 @@ After starting the app, explore `/work`, `/about`, `/studio`, and `/learn`. Supp
 - [Agent instructions](AGENTS.md) — repository conventions and current scope.
 
 Begin with a running starter, a discovery brief, and one small change you understand. Expand the project as the course introduces new capabilities.
+
+## CI/CD Deployment and Server Security
+
+### Live Websites
+
+- **Production:** https://jiyeonchoi.xyz
+- **QA:** https://qa.jiyeonchoi.xyz
+- **GitHub Repository:** https://github.com/jec87/is373_fall2026
+
+Both websites are hosted on a DigitalOcean Droplet using Docker and HTTPS.
+
+### CI/CD Pipeline
+
+The project uses GitHub Actions to automate testing, building, publishing, and deployment.
+
+1. Code is pushed to the `qa` or `main` branch.
+2. GitHub Actions validates the application and builds a production Docker image.
+3. The Docker image is published to GitHub Container Registry (GHCR).
+4. Changes pushed to `qa` automatically deploy to the QA environment.
+5. Tested changes are promoted to `main` for production deployment.
+6. Deployment includes container health checks and rollback logic.
+
+**Container Registry:** `ghcr.io/jec87/is373_fall2026`
+
+**Image Tag:** Git commit SHA (`github.sha`).
+
+### GitHub Actions Evidence
+
+- [Successful CI Workflow](https://github.com/jec87/is373_fall2026/actions)
+- [Successful QA and Production Deployment](https://github.com/jec87/is373_fall2026/actions)
+
+The CI, QA, and production workflows were successfully verified on October 15, 2026.
+
+### Server Security
+
+The DigitalOcean server uses Ubuntu 24.04 LTS with a non-root deployment account.
+
+Verified SSH configuration:
+
+- Root SSH login disabled.
+- Password authentication disabled.
+- Public-key authentication enabled.
+- Keyboard-interactive authentication disabled.
+- SSH host key verification enabled for deployments.
+
+A DigitalOcean cloud firewall protects the server, allowing inbound traffic on ports 22 (SSH), 80 (HTTP), and 443 (HTTPS).
+
+### Deployment Verification
+
+Both QA and production Docker containers passed their health checks. The production website returned HTTP 200 over HTTPS after deployment and firewall configuration.
+
+The CI and production deployment workflows completed successfully, and the production website remained accessible.
