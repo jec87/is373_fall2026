@@ -1,3 +1,9 @@
+## Live Deployment
+
+- **Production:** https://jiyeonchoi.xyz
+- **QA:** https://qa.jiyeonchoi.xyz
+- **GitHub Repository:** https://github.com/jec87/is373_fall2026
+
 # IS373 — Your professional home on the web
 
 Your first project in Content Management Systems is to begin building a personal web presence. Use AI to help develop it, Docker to run it consistently, and a discovery process to decide what it should communicate. You should be able to explain both your choices and the work behind them.
@@ -87,3 +93,61 @@ A DigitalOcean cloud firewall protects the server, allowing inbound traffic on p
 Both QA and production Docker containers passed their health checks. The production website returned HTTP 200 over HTTPS after deployment and firewall configuration.
 
 The CI and production deployment workflows completed successfully, and the production website remained accessible.
+
+## Test Evidence
+
+### CI/CD Workflow
+
+- **GitHub Actions:** https://github.com/jec87/is373_fall2026/actions
+- **Docker Image Registry:** https://github.com/jec87/is373_fall2026/pkgs/container/is373_fall2026
+- **Production Website:** https://jiyeonchoi.xyz
+- **QA Website:** https://qa.jiyeonchoi.xyz
+
+The CI/CD pipeline runs when changes are pushed to the `qa` or `main` branches. GitHub Actions validates the application, builds a Docker image, and publishes it to GitHub Container Registry. Successful changes on `qa` deploy to the QA website. Changes merged into `main` deploy to production.
+
+### QA to Production Demonstration
+
+A visible portfolio change was tested through the QA branch before being promoted to the production branch.
+
+**Evidence to attach:**
+
+- Screenshot of the updated QA website.
+- Screenshot of the updated production website.
+- Links to the successful QA and production workflow runs.
+
+### SSH Security Verification
+
+The server uses the non-root `deploy` account with SSH-key authentication.
+
+Verified SSH settings:
+
+- `permitrootlogin no`
+- `pubkeyauthentication yes`
+- `passwordauthentication no`
+- `kbdinteractiveauthentication no`
+
+**Evidence to attach:**
+
+- Screenshot showing successful SSH login as `deploy`.
+- Screenshot showing the effective SSH configuration.
+
+- **Successful QA Workflow:** https://github.com/jec87/is373_fall2026/actions/runs/38762594547
+- **Successful Production Workflow:** https://github.com/jec87/is373_fall2026/actions/runs/38767834062
+- **QA Commit:** `77686ae`
+- **Production Commit:** `b2502fd`
+
+**QA Website Screenshot**
+
+![QA Website](docs/evidence/qa-website.png)
+
+**Production Website Screenshot**
+
+![Production Website](docs/evidence/production-website.png)
+
+**SSH Security Evidence**
+
+![SSH Security Settings](docs/evidence/ssh-security.png)
+
+**Non-Root SSH Login Evidence**
+
+![Successful SSH Login](docs/evidence/ssh-login.png)
