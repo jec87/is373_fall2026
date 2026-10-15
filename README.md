@@ -134,10 +134,13 @@ Verified SSH settings:
 - `passwordauthentication no`
 - `kbdinteractiveauthentication no`
 
-**Evidence to attach:**
+**SSH Security Settings Screenshot**
 
-- Screenshot showing successful SSH login as `deploy`.
-- Screenshot showing the effective SSH configuration.
+![SSH Security Settings](docs/evidence/ssh-security.png)
+
+**Non-Root SSH Login Screenshot**
+
+![Successful SSH Login](docs/evidence/ssh-login.png)
 
 - **Successful QA Workflow:** https://github.com/jec87/is373_fall2026/actions/runs/38762594547
 - **Successful Production Workflow:** https://github.com/jec87/is373_fall2026/actions/runs/38767834062
