@@ -107,13 +107,21 @@ The CI/CD pipeline runs when changes are pushed to the `qa` or `main` branches. 
 
 ### QA to Production Demonstration
 
-A visible portfolio change was tested through the QA branch before being promoted to the production branch.
+**Successful QA Deployment:** https://github.com/jec87/is373_fall2026/actions/runs/38762594547
 
-**Evidence to attach:**
+**Successful Production Deployment:** https://github.com/jec87/is373_fall2026/actions/runs/38767834062
 
-- Screenshot of the updated QA website.
-- Screenshot of the updated production website.
-- Links to the successful QA and production workflow runs.
+**QA Deployment Commit:** `77686ae`
+
+**Production Deployment Commit:** `b2502fd`
+
+**QA Website Screenshot**
+
+![QA Website](docs/evidence/qa-website.png)
+
+**Production Website Screenshot**
+
+![Production Website](docs/evidence/production-website.png)
 
 ### SSH Security Verification
 
