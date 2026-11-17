@@ -7,188 +7,293 @@
 
 ## 1. Portfolio + career research
 
-### Existing portfolio
+### Existing Portfolio
 
-- Production: https://jiyeonchoi.xyz
-- QA: https://qa.jiyeonchoi.xyz
-- Repository: https://github.com/jec87/is373_fall2026
+Production: https://jiyeonchoi.xyz  
+QA: https://qa.jiyeonchoi.xyz  
+GitHub: https://github.com/jec87/is373_fall2026
 
 My portfolio is already hosted using Docker and DigitalOcean. It includes a homepage, About page, work examples, and different design themes.
 
-### Career Research – Three Original Employer Postings
-
-**Career directions compared:** UX/UI Designer and Front-End Developer.
-
-**My preferred career:** UX/UI Designer.
+### Career Research – Three Employer Postings
 
 **Source 1: Palantir Technologies – Product Designer, New Grad**
 
 https://jobs.lever.co/palantir/4c0fb3a1-8256-4d14-9a27-23727235752e
 
-This position focuses on interaction design, visual design, user research, and Figma. Designers work with developers and product managers to improve products.
+This position focuses on interaction design, visual design, user research, and Figma. Designers collaborate with developers and product managers.
 
 **Source 2: CaseGuard – UI/UX Designer**
 
 https://job-boards.greenhouse.io/caseguard/jobs/5362528008
 
-This position emphasizes wireframes, prototypes, user flows, research, and testing. It also requires a strong online portfolio that demonstrates design skills.
+This position emphasizes wireframes, prototypes, user flows, research, and testing. It also emphasizes a strong online portfolio.
 
 **Source 3: New Jersey Innovation Authority – Senior Product Designer**
 
 https://jobs.lever.co/NJStateOfficeofInnovation/8e03a679-9488-4d52-9f6f-ad33a4b431c6/
 
-This position focuses on human-centered design, user interviews, usability testing, journey maps, and Figma. It is a senior role, so I am using it to understand long-term career expectations.
+This position focuses on human-centered design, user interviews, usability testing, journey maps, and Figma. This is a senior position, so I am using it to understand long-term career expectations.
+
+These are employer sources selected for research. I will confirm their current availability and requirements before using them for future applications.
 
 ### Career Comparison
 
-**UX/UI Designer:** Focuses on understanding users, conducting research, creating wireframes, building prototypes, and improving how people interact with digital products.
+**Option A: UX/UI Designer**
 
-**Front-End Developer:** Focuses on implementing interfaces using programming languages such as HTML, CSS, and JavaScript.
+UX/UI designers focus on understanding users, conducting research, creating wireframes, developing prototypes, and improving digital experiences.
 
-Both careers involve creating digital experiences and working with development teams. UX/UI design emphasizes research and design decisions, while front-end development emphasizes implementation.
+**Option B: Front-End Developer**
+
+Front-end developers focus on implementing interfaces using HTML, CSS, JavaScript, and other web technologies.
+
+Both careers involve creating digital products. UX/UI design focuses more on research and design decisions, while front-end development focuses more on implementation.
 
 ### My Career Decision
 
 I chose UX/UI Designer because I enjoy combining creativity, technology, and user research. My Digital Design and HCI coursework connects to this career.
 
-The three employer postings show that user research, prototyping, visual design, and communication are important skills.
+The employer postings show that research, prototyping, visual design, and communication are important skills.
 
-### Portfolio Evidence
+### Target Reader and Portfolio Evidence
 
-My target reader is a UX/UI hiring manager reviewing candidates for junior design roles.
+My target reader is a hiring manager looking for a junior UX/UI designer.
 
 I plan to feature:
-- My Netflix user research project to demonstrate interviews and understanding user problems.
-- My Digital Closet project to demonstrate interface planning and visual organization.
-- My existing portfolio website to demonstrate digital design and technical implementation.
 
-I will only present completed work as completed and clearly label work that is still in progress.
+- **Netflix user research project:** Demonstrates interviews, user needs, and research findings.
+- **Digital Closet project:** Demonstrates interface planning and visual organization.
+- **Portfolio website:** Demonstrates digital design, development, and technical implementation.
 
-### Next Steps
+I will clearly label completed projects and work that is still in progress.
 
-I will improve my portfolio by adding clear case studies, showing my design process, and explaining how my projects connect to employer expectations.
-
-I will also ask a peer whether my selected projects and portfolio layout make sense for a UX/UI hiring manager.
-
-**Research date:** November 17, 2026.
-
-**Original employer postings:** To be added after reviewing three real job advertisements.
-
-### Target audience and portfolio evidence
-
-My proposed target audience is employers hiring for UX/UI and related digital design roles.
-
-I plan to feature projects that demonstrate user research, interface design, problem-solving, and technical skills. I will distinguish completed work from sample projects.
-
-### Portfolio layout comparison
+### Portfolio Layout Comparison
 
 **Option A: Minimal portfolio**
 
-A simple homepage, About page, and project gallery. This makes it easy for employers to find my work.
+A simple homepage, About page, and project gallery. Employers can quickly find relevant work.
 
 **Option B: Visual portfolio**
 
-A more creative layout with larger images, animations, and interactive elements.
+A creative layout with large images, animations, and interactive elements.
 
-**Current decision:** I prefer Option A because employers should be able to find my work quickly.
+**My decision:** I prefer Option A because it makes my projects easier to navigate and understand.
 
-### Checks and next steps
+### Existing Checks and Evidence
 
-**Existing documented checks:**
-- QA and production deployments were verified on October 15, 2026.
+My portfolio already has a working deployment setup.
+
+**Previously verified on October 15, 2026:**
+
+- QA and production deployments completed successfully.
+- Docker containers passed health checks.
 - Production returned HTTP 200 over HTTPS.
-- Docker health checks passed.
+- SSH password authentication and root login were disabled.
+- GitHub Actions workflows completed successfully.
 
-**Planned checks:**
-- Review three original employer job postings.
-- Compare the two career directions using employer requirements.
-- Ask a peer whether my target audience and featured projects match those requirements.
-- Test the portfolio layout on desktop and mobile.
+**Evidence:**
+
+GitHub Actions: https://github.com/jec87/is373_fall2026/actions
+
+QA deployment: https://github.com/jec87/is373_fall2026/actions/runs/38762594547
+
+Production deployment: https://github.com/jec87/is373_fall2026/actions/runs/38767834062
+
+These are previous deployment checks, not new usability tests.
+
+### Portfolio Next Steps
+
+1. Add detailed UX/UI case studies.
+2. Improve project descriptions and visuals.
+3. Check desktop and mobile layouts.
+4. Ask a peer whether my featured projects match employer expectations.
+5. Record the feedback and any resulting changes.
 
 ## 2. RAG app + technical research
 
-### Proposed application
+### Proposed Application
 
-I plan to create a RAG application that helps students find answers from permitted course documentation.
+I plan to create a Student Course Information Assistant using Retrieval-Augmented Generation (RAG).
 
-The application would retrieve relevant passages and generate answers supported by those sources.
+The application would help students find answers about assignments, deadlines, and course requirements from permitted documents.
 
-This is a proposal, not a completed application.
+This is a proposed application, not a completed system.
 
-### Technical research
+### Technical Research
 
-**Retrieval-Augmented Generation (RAG):** RAG retrieves relevant information before generating an answer. This can help ground responses in source documents.
+**Retrieval-Augmented Generation (RAG):** Retrieves relevant information before generating an answer, helping ground responses in source documents.
 
-**Vector database:** Stores embeddings that can be searched by semantic similarity.
+**Vector database:** Stores embeddings and supports similarity searches.
 
-**Graph database:** Represents entities and relationships, which can help answer questions about how concepts connect.
+**Graph database:** Stores entities and relationships to help answer questions about connected information.
 
 **Chunking:** Divides documents into smaller sections for retrieval.
 
-**Embeddings:** Convert text into numerical representations for similarity search.
+**Embeddings:** Convert text into numerical representations that can be compared for similarity.
 
-**Entities and relationships:** Identify important concepts and how they connect.
+**Entities and relationships:** Represent concepts such as courses, assignments, deadlines, and their connections.
 
-**Import:** Load permitted source documents, preserve source metadata, divide them into chunks, and prepare them for retrieval.
+**Import:** Extracts permitted documents, preserves metadata, and prepares content for indexing.
 
-### Database comparison
+### Database Comparison
 
 **Option A: Vector retrieval**
 
-Useful for finding passages that are semantically similar to a student's question.
+Vector retrieval finds passages that are semantically similar to a user's question.
 
 **Option B: Graph retrieval**
 
-Useful for following explicit relationships among courses, assignments, requirements, and other entities.
+Graph retrieval follows relationships between entities, such as courses, assignments, and requirements.
 
-**Current decision:** I propose starting with vector retrieval because the initial application focuses on finding relevant text passages. A graph database may be considered later if relationship-based questions require it.
+**My decision:** I plan to start with vector retrieval because the application mainly needs to find relevant passages from documents.
 
-### Proposed architecture
+### Technical Tool Comparison and Research Sources
 
-Permitted source documents → text extraction → chunking → embeddings → vector index → retrieval → answer generation with source citations.
+**Option 1: Chroma**
 
-Each indexed passage should retain its original document title, source URL, and access date.
+Chroma is an open-source vector database used for AI applications. It stores embeddings and supports similarity searches.
 
-### Source permissions
+Source: https://docs.trychroma.com/
 
-I will identify course documents that can be used for this project and verify their permissions before importing them.
+**Option 2: PostgreSQL with pgvector**
 
-Restricted course content will not be published in a public repository without permission.
+pgvector adds vector similarity search to PostgreSQL. It can store document metadata and embeddings in one database.
 
-### Evaluation questions
+Source: https://github.com/pgvector/pgvector
+
+**Option 3: Neo4j**
+
+Neo4j is a graph database that stores nodes and relationships. It could connect courses, assignments, and related requirements.
+
+Source: https://neo4j.com/docs/
+
+### My Technical Decision
+
+I plan to use Chroma because it supports vector retrieval and is suitable for a small local prototype.
+
+PostgreSQL with pgvector is another option, but it requires additional database setup.
+
+Neo4j could be useful for more complex relationships, but a graph database is not necessary for the first version.
+
+### Additional Research Sources
+
+**RAG research paper:**  
+https://arxiv.org/abs/2005.11401
+
+**Embeddings documentation:**  
+https://platform.openai.com/docs/guides/embeddings
+
+**Text splitting and chunking:**  
+https://python.langchain.com/docs/concepts/text_splitters/
+
+These sources explain how retrieval, embeddings, and document processing support RAG systems.
+
+### Proposed RAG Architecture
+
+1. Select documents that I have permission to use.
+2. Extract text and preserve source information.
+3. Divide the documents into smaller chunks.
+4. Generate embeddings for each chunk.
+5. Store the embeddings in Chroma.
+6. Retrieve relevant chunks when a student asks a question.
+7. Generate an answer using the retrieved information.
+8. Display citations linking back to the original sources.
+
+Each chunk should retain its document title, URL, and access date.
+
+### Source Permissions
+
+I will confirm that I have permission to use each document before importing it.
+
+Restricted course documents will not be uploaded to a public repository without permission.
+
+For the first prototype, I plan to use a publicly accessible course project guide if its reuse is permitted.
+
+### Source Trace Example
+
+**Proposed source:** An IS373 assignment document that is permitted for use.
+
+**Question:** Is a hosted application required during the Plan stage?
+
+**Expected evidence:** The assignment states that hosting is optional during Plan and required during Build.
+
+**Expected answer:** A hosted application is not required for Plan, but working hosted foundations are required for Build.
+
+**Evaluation:** I will check whether the application retrieves the correct passage and cites the source.
+
+If the answer is incorrect or unsupported, the test will fail.
+
+This is an example of a planned evaluation, not a completed test.
+
+### Evaluation Questions
 
 1. Can the application find the correct assignment deadline?
 2. Can it identify the required submission format?
 3. Can it distinguish between Plan and Build requirements?
 4. Does it provide evidence from the correct source?
-5. Does it acknowledge when the available sources do not contain an answer?
+5. Does it acknowledge when information is missing?
 
-### Hosting and resource constraints
+### Hosting and Resource Constraints
 
-I plan to evaluate a lightweight application that can run locally before deployment.
+I plan to develop the first version locally before hosting it.
 
-I will consider storage, memory, embedding costs, retrieval performance, and whether the existing DigitalOcean server has enough resources.
+I will consider:
 
-### Planned checks
+- Server memory and storage.
+- Embedding and AI model costs.
+- Retrieval speed.
+- Docker compatibility.
+- Available resources on my DigitalOcean server.
 
-- Import one permitted source and confirm its metadata is preserved.
-- Retrieve a relevant passage for a test question.
-- Check whether the answer accurately reflects the passage.
-- Test a question with missing evidence.
-- Check whether the application displays the correct source citation.
+I will evaluate whether my existing server can support the application before deployment.
 
-### Current status
+### Planned Checks
 
-The architecture and evaluation questions are planned. No RAG retrieval or answer-generation tests have been executed yet.
+1. Import a permitted document and confirm its metadata.
+2. Retrieve the correct passage for a test question.
+3. Compare the generated answer with the original source.
+4. Test a question with missing evidence.
+5. Verify that the answer includes the correct citation.
 
-### Next steps
+### Current Status
 
-Research specific vector and graph database tools, compare their resource requirements, confirm permitted sources, implement a small prototype, and record actual test results.
+The RAG architecture, database choice, and evaluation questions are planned.
 
-## Review summary
+No RAG retrieval or answer-generation tests have been executed yet.
 
-**Completed previously:** Portfolio deployment, CI/CD workflows, server security verification, and documented hosting checks.
+My existing portfolio deployment checks do not prove that the RAG application works.
 
-**Proposed:** Career direction, portfolio layout choice, and RAG architecture.
+### RAG Next Steps
 
-**Still needed:** Original employer postings, technical research sources, tool comparison, peer feedback, and RAG evaluation evidence.
+1. Confirm document permissions.
+2. Select an embedding model.
+3. Create a small local prototype using Chroma.
+4. Test retrieval accuracy.
+5. Record actual results and improve the application.
+
+## Review Summary
+
+### Completed
+
+- Existing portfolio website and repository.
+- QA and production deployment.
+- Previous CI/CD and security checks.
+- Career direction and portfolio layout comparison.
+- Proposed RAG architecture and technical tool comparison.
+
+### Planned or Still Needed
+
+- Confirm the three employer postings against the original pages.
+- Confirm permission to reuse the RAG source documents.
+- Collect and document peer feedback.
+- Improve portfolio case studies.
+- Build and test the RAG prototype.
+- Record new test results and any changes based on feedback.
+
+### AI Assistance and My Contribution
+
+I used AI assistance to help organize my research, compare technical approaches, and draft my project plan.
+
+My existing portfolio and deployment work provide the technical foundation. I selected UX/UI design as my career direction and Chroma as my proposed RAG database.
+
+I will verify research claims against original sources and document the tests I personally complete. AI-generated explanations are not treated as proof that the application works.
